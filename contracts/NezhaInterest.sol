@@ -1,21 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0;
 
-// ERC-20 接口
-interface IERC20 {
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
-
-    function transfer(address recipient, uint256 amount)
-        external
-        returns (bool);
-
-    function balanceOf(address account) external view returns (uint256);
-}
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract NezhaInterest {
     address payable public owner;
@@ -45,7 +32,7 @@ contract NezhaInterest {
 
     // 用户存钱
     function depositETH() public payable {
-        // 存钱数是否大约0
+        // 存钱数是否大于0
         require(msg.value > 0, "deposit amount > 0");
         // 记录存款用户地址
         if (ethBalance[msg.sender] == 0 && ydBalance[msg.sender] == 0) {
@@ -70,13 +57,13 @@ contract NezhaInterest {
 
     // 用户存钱
     function depositYD(uint256 _amount) public payable {
-        // 存钱数是否大约0
-        require(msg.value > 0, "deposit amount > 0");
+        // 存钱数是否大于0
+        require(_amount > 0, "deposit amount > 0");
         // 记录存款用户地址
         if (ethBalance[msg.sender] == 0 && ydBalance[msg.sender] == 0) {
             depositors.push(msg.sender);
         }
-        ydBalance[msg.sender] += msg.value;
+        ydBalance[msg.sender] += _amount;
         // 把YD币转移到合约账户
         require(
             token.transferFrom(msg.sender, address(this), _amount),
