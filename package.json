@@ -1,7 +1,26 @@
 {
-	"dependencies": {
-		"@openzeppelin/contracts": "^4.9.3",
-		"@truffle/hdwallet-provider": "^2.1.15",
-		"dotenv": "^16.4.7"
-	}
+  "name": "truffle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "dotenv": "^16.4.7",
+    "prettier": "^2.8.8"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v5": "^11.1.2",
+    "typechain": "^8.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-types": "typechain --target=ethers-v5 'build/contracts/*.json'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
